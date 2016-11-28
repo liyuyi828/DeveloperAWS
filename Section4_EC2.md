@@ -37,3 +37,23 @@ EC2 is the backbone is AWS
 * G2: Graphics / General Purpose GPU - Video encoding / Machine Learning / 3D Applicaiton Streaming
 * I2: High Speed Storage  - NoSQL DBs, Data Warehousing etc
 * D2: Dense Storage - Filesevers / Data Warehousing / Hadoop
+
+### Quick Reference
+* D: Density
+* I: IOPs
+* R: RAM
+* T: cheap general purpose
+* M: main choice for general purpose
+* C: Compute
+* G: Graphics
+
+### EBS
+* Elastic Block Storage - disk on the cloud
+* Attach EBS to EC2, but one EBS can only attached to one EC2, one EC2 can have multiple EBS
+* SSD (GP2)
+  * 99.999% availability
+  * 3 IOPS per GB with up to 10,000 IOPS 
+* Provisional IOPS SSD
+  * I/O intense application, use if you need more than 10,000 IOPS
+* Magnetic(Standard)
+  * Lowset cost per gigabyte of all EBS volume
