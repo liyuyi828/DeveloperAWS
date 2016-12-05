@@ -53,7 +53,59 @@ EC2 is the backbone is AWS
 * SSD (GP2)
   * 99.999% availability
   * 3 IOPS per GB with up to 10,000 IOPS 
-* Provisional IOPS SSD
+* Provisional IOPS SSD (IO1)
   * I/O intense application, use if you need more than 10,000 IOPS
 * Magnetic(Standard)
   * Lowset cost per gigabyte of all EBS volume
+
+### Exam Tips: 
+#### Know the difference between: 
+* On Demand
+* Spot
+* Reserved
+#### Remember with spot instances:
+* if you terminate the instance, you pay for the hours
+* if AWS terminate the instance (for example, price goes up),you the the hours it was terminated in for free
+#### EBS consists of:
+* General Puspose SSD - GP2 - (Up to 10000 IOPS)
+* Provisional IOPS SSD - IO1 - (more than 10000 IOPS)
+* Magnetic - Cheap, infrequently accesss storage
+* YOu can not mounted 1 EBS to multipley EC2 instance, instead use EFS. 
+
+
+## Lab Note:
+### Using key and access key
+* ```ssh -i ec2-user@<ip2> -i your.pem``` command from course did not work, I have do use the ssh command ```ssh -i your.pem ec2-user@publicDNS```from AWS doc <http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html>, then enter "yes"
+* enter ```sudo su``` back to root directory
+* enter ```aws configure```, use secret ID and access key to configure credential, choose whichever service region that is convinient for you
+* aws s3 mb s3://myverylongtestingbucket
+* cd /
+* cd ~
+* cd .aws
+* nano to check config file
+
+### Using Roles
+Using secret id and secret key is not the best way to access files; try to use role if possible. To use role, just apply role when launching the EC2 instance
+* You can also run a "shell" script when launching the instance
+* The course use the following script for PHP: 
+```
+#!/bin/bash
+yum update -y
+yum install httpd24 php56 git -y
+service httpd start
+chkconfig httpd on
+cd /var/www/html
+echo "<?php phpinfo();?>" > test.php
+git clone https://github.com/acloudguru/s3
+```
+go to "var/www/html" directory, which is where our file is located, run 
+```
+
+```
+to install aws-sdk with "composer", which is recommended by AWS. 
+
+Always require "autoload.php" in "/var/www/html/vendor" directory in order to connect to AWS-sdk. 
+
+```http://169.254.169.254/latest/meta-data``` to get meta data
+
+
